@@ -6,10 +6,11 @@ Created on Thu Dec  2 14:20:44 2021
 """
 
 alfabeto=["a",'b','c']
-entrada="abcb"
+entrada="AB"
 cintaInput=list(entrada)
-cintaInput.append(" ")
-cintaInput.insert(0, " ")
+#cintaInput.append(" ")
+#cintaInput.insert(0, " ")
+
 
 
 
@@ -18,8 +19,8 @@ if len(cintaInput) == 0:
 
 class regla:
     def __init__(self, lectura, escritura, movimiento, estadoDestino):
-        self.lectura = lectura
-        self.escritura = escritura
+        self.lectura = str(lectura)
+        self.escritura = str(escritura)
         self.movimiento = movimiento
         self.estadoDestino = estadoDestino
         
@@ -33,30 +34,37 @@ class estado:
         regla1 = regla(lectura, escritura, movimiento, estadoDestino)
         self.reglas.append(regla1)
         self.numeroRegla.append(lectura)
+        self.estadosDestino = estadoDestino
         
     def movimiento(self, cinta, indice):
         numeroDeregla = self.numeroRegla.index(cinta[indice])
         regla = self.reglas.__getitem__(numeroDeregla)
+        print(numeroDeregla)
         
         if regla.lectura == cinta[indice]:
             cinta[indice] = regla.escritura
         
+        cinta[indice] = regla.escritura
+
         if regla.movimiento == "R":
-            indice = indice+1
+            if indice+1 > len(cinta):
+                cinta.append(" ")
+                indice = indice+1
+            else:
+                indice = indice+1
+           
         elif regla.movimiento == "L":
             if indice-1 < 0:
                 cinta.insert(0," ")
                 indice = indice-1
             else:
                 indice = indice-1
+                
         elif regla.movimiento == "S":
-            if indice+1 > len(cinta):
-                cinta.append(" ")
-                indice = indice+1
-            else:
-                indice = indice+1
             indice = indice
-
+        
+        print(indice, cinta)
+        regla.estadoDestino.movimiento(cinta,indice)
 
 q0=estado()
 q1=estado()
@@ -77,7 +85,12 @@ q15=estado()
 q16=estado()
 q17=estado()
 
+q0.agregarRegla('C','C','R',q1)
+q0.agregarRegla('A','YY','R',q1)
+q1.agregarRegla('B','zzz','R',q1)
 
+q0.movimiento(cintaInput, 0)
+print(cintaInput)
 
 
 """
