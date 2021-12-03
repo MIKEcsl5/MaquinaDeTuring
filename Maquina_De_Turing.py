@@ -6,7 +6,7 @@ Created on Thu Dec  2 14:20:44 2021
 """
 
 alfabeto=["a",'b','c']
-entrada="AB"
+entrada="AAAAAAC"
 cintaInput=list(entrada)
 #cintaInput.append(" ")
 #cintaInput.insert(0, " ")
@@ -31,7 +31,7 @@ class estado:
         self.numeroRegla.append(lectura)
         
     def movimiento(self, cinta, indice):
-        print(cinta)
+        print(cinta, "||||||||",self.name)
         
         numeroDeregla = self.numeroRegla.index(cinta[indice])
         regla = self.reglas.__getitem__(numeroDeregla)
@@ -79,7 +79,7 @@ def main(cintaInput, estados):
     estados[0].agregarRegla('C','C','R',estados[1])
     
     #REGLAS ESTADO 1
-    estados[1].agregarRegla('A','A','A',estados[1])
+    estados[1].agregarRegla('A','A','R',estados[1])
     estados[1].agregarRegla('B','B','R',estados[1])
     estados[1].agregarRegla('C','C','R',estados[1])
     estados[1].agregarRegla(' ','Y','L',estados[2])
@@ -102,10 +102,10 @@ def main(cintaInput, estados):
     estados[4].agregarRegla('Y','Y','L',estados[11])
     
     #REGLAS ESTADO 5
-    estados[5].agregarRegla('A','A','R',estados[8])
-    estados[5].agregarRegla('B','B','R',estados[8])
-    estados[5].agregarRegla('C','C','R',estados[8])
-    estados[5].agregarRegla('Y','Y','R',estados[8])
+    estados[5].agregarRegla('A','A','R',estados[5])
+    estados[5].agregarRegla('B','B','R',estados[5])
+    estados[5].agregarRegla('C','C','R',estados[5])
+    estados[5].agregarRegla('Y','Y','R',estados[5])
     estados[5].agregarRegla(' ','A','L',estados[8]) 
     
     #REGLAS ESTADO 6
@@ -116,10 +116,10 @@ def main(cintaInput, estados):
     estados[6].agregarRegla(' ','B','L',estados[9]) 
     
     #REGLAS ESTADO 7
-    estados[7].agregarRegla('A','A','R',estados[10])
-    estados[7].agregarRegla('B','B','R',estados[10])
-    estados[7].agregarRegla('C','C','R',estados[10])
-    estados[7].agregarRegla('Y','Y','R',estados[10])
+    estados[7].agregarRegla('A','A','R',estados[7])
+    estados[7].agregarRegla('B','B','R',estados[7])
+    estados[7].agregarRegla('C','C','R',estados[7])
+    estados[7].agregarRegla('Y','Y','R',estados[7])
     estados[7].agregarRegla(' ','C','L',estados[10]) 
     
     #REGLAS ESTADO 8
