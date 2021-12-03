@@ -4,13 +4,9 @@ Created on Thu Dec  2 14:20:44 2021
 
 @author: socce
 """
+import tkinter as tk
 
-alfabeto=["a",'b','c']
-entrada="AAAAAAC"
-cintaInput=list(entrada)
-#cintaInput.append(" ")
-#cintaInput.insert(0, " ")
-estados=[]
+
 
 class regla:
     def __init__(self, lectura, escritura, movimiento, estadoDestino):
@@ -64,12 +60,16 @@ class estado:
         else:
             print("CINTA DE SALIDA:",cinta)
 
-def main(cintaInput, estados):    
+def main(entrada):    
+    
+    cintaInput=list(entrada.get())
+    estados=[]
+
     if len(cintaInput) == 0:
         print(Exception("La entrada esta vacia"))
     else:
         print("CINTA DE ENTRADA:",cintaInput,"\n")
-        for i in range(0,18):
+        for i in range(0,17):
             q0 = estado(i)
             estados.append(q0)
     
@@ -181,7 +181,28 @@ def main(cintaInput, estados):
     #INICIO DE LAS TRANCISIONES
     estados[0].movimiento(cintaInput, 0)
 
-main(cintaInput,estados)
+def interfaz():
+    ventana = tk.Tk() 
+    ventana.title("Primera Ventana") #Cambiar el nombre de la ventana 
+    ventana.geometry("520x480") #Configurar tamaño 
+
+    #Titulo    
+    etiqueta = tk.Label(ventana, text = "Maquina de PhyTuring")
+    etiqueta.pack()
+    
+    #caja de Texto
+    entrada = tk.Entry(ventana)
+    entrada.pack()
+    
+    #Boton iniciar
+    boton = tk.Button(ventana, text = "Iniciar", padx=50, pady=5, command = lambda: main(entrada))
+    boton.pack()
+    
+    ventana.mainloop()
+    
+interfaz()
+
+
 
 
 
