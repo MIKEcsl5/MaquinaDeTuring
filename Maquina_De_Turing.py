@@ -6,6 +6,9 @@ Created on Thu Dec  2 14:20:44 2021
 """
 import tkinter as tk
 
+ventana = tk.Tk() 
+ventana.title("Primera Ventana") #Cambiar el nombre de la ventana 
+ventana.geometry("520x480") #Configurar tamaño 
 
 
 class regla:
@@ -56,6 +59,9 @@ class estado:
         
         if regla.estadoDestino != 0:
             print(cinta)
+            salida = tk.Label(ventana)
+            salida.pack()
+            salida["text"] = cinta
             regla.estadoDestino.movimiento(cinta,indice)
         else:
             print("CINTA DE SALIDA:",cinta)
@@ -182,10 +188,6 @@ def main(entrada):
     estados[0].movimiento(cintaInput, 0)
 
 def interfaz():
-    ventana = tk.Tk() 
-    ventana.title("Primera Ventana") #Cambiar el nombre de la ventana 
-    ventana.geometry("520x480") #Configurar tamaño 
-
     #Titulo    
     etiqueta = tk.Label(ventana, text = "Maquina de PhyTuring")
     etiqueta.pack()
