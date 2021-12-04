@@ -5,10 +5,18 @@ Created on Thu Dec  2 14:20:44 2021
 @author: socce
 """
 import tkinter as tk
+from tkinter import *
 
 ventana = tk.Tk() 
 ventana.title("Primera Ventana") #Cambiar el nombre de la ventana 
-ventana.geometry("520x480") #Configurar tamaño 
+ventana.geometry("820x8000") #Configurar tamaño 
+#Barra de desplazamiento
+scroll_bar = Scrollbar(ventana)
+scroll_bar.pack( side = 'right',
+                fill = 'y' )
+    
+mylist = Listbox(ventana, 
+                 yscrollcommand = scroll_bar.set )
 
 
 class regla:
@@ -59,11 +67,10 @@ class estado:
         
         if regla.estadoDestino != 0:
             print(cinta)
-            salida = tk.Label(ventana)
-            salida.pack()
-            salida["text"] = cinta
+            mylist.insert(END, cinta)
             regla.estadoDestino.movimiento(cinta,indice)
         else:
+            mylist.insert(END, "\n\n")
             print("CINTA DE SALIDA:",cinta)
 
 def main(entrada):    
@@ -196,14 +203,16 @@ def interfaz():
     entrada = tk.Entry(ventana)
     entrada.pack()
     
+   
     #Boton iniciar
     boton = tk.Button(ventana, text = "Iniciar", padx=50, pady=5, command = lambda: main(entrada))
     boton.pack()
     
+    mylist.pack(fill = BOTH, ipadx=50, ipady=800 )  
+    scroll_bar.config( command = mylist.yview )
     ventana.mainloop()
-    
+  
 interfaz()
-
 
 
 
