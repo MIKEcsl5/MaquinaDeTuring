@@ -10,11 +10,13 @@ from tkinter import *
 ventana = tk.Tk() 
 ventana.title("Primera Ventana") #Cambiar el nombre de la ventana 
 ventana.geometry("820x8000") #Configurar tamaño 
+
 #Barra de desplazamiento
 scroll_bar = Scrollbar(ventana)
 scroll_bar.pack( side = 'right',
                 fill = 'y' )
-    
+
+#Elementos a imprimir
 mylist = Listbox(ventana, 
                  yscrollcommand = scroll_bar.set )
 
@@ -38,50 +40,46 @@ class estado:
         self.numeroRegla.append(lectura)
         
     def movimiento(self, cinta, indice):
-        print(cinta, "||||||||",self.name)
         
         numeroDeregla = self.numeroRegla.index(cinta[indice])
         regla = self.reglas.__getitem__(numeroDeregla)
         
         if regla.lectura == cinta[indice]:
             cinta[indice] = regla.escritura
-        
-        cinta[indice] = regla.escritura
-
-        if regla.movimiento == "R":
-            if indice+1 > len(cinta)-1:
-                cinta.append(" ")
-                indice = indice+1
-            else:
-                indice = indice+1
-           
-        elif regla.movimiento == "L":
-            if indice-1 < 0:
-                cinta.insert(0," ")
-                indice = 0
-            else:
-                indice = indice-1
+            
+            if regla.movimiento == "R":
+                if indice+1 > len(cinta)-1:
+                    cinta.append(" ")
+                    indice = indice+1
+                else:
+                    indice = indice+1
+               
+            elif regla.movimiento == "L":
+                if indice-1 < 0:
+                    cinta.insert(0," ")
+                    indice = 0
+                else:
+                    indice = indice-1
+                    
+            elif regla.movimiento == "S":
+                indice = indice
+            
+            if regla.estadoDestino != 0:
+                mylist.insert(END, cinta)
+                regla.estadoDestino.movimiento(cinta,indice)
                 
-        elif regla.movimiento == "S":
-            indice = indice
-        
-        if regla.estadoDestino != 0:
-            print(cinta)
-            mylist.insert(END, cinta)
-            regla.estadoDestino.movimiento(cinta,indice)
-        else:
-            mylist.insert(END, "\n\n")
-            print("CINTA DE SALIDA:",cinta)
-
+            else:
+                mylist.insert(END, "\n\n\n")
+                
+            
+            
 def main(entrada):    
     
     cintaInput=list(entrada.get())
     estados=[]
 
-    if len(cintaInput) == 0:
-        print(Exception("La entrada esta vacia"))
-    else:
-        print("CINTA DE ENTRADA:",cintaInput,"\n")
+    
+    if len(cintaInput) != 0:
         for i in range(0,17):
             q0 = estado(i)
             estados.append(q0)
@@ -196,7 +194,7 @@ def main(entrada):
 
 def interfaz():
     #Titulo    
-    etiqueta = tk.Label(ventana, text = "Maquina de PhyTuring")
+    etiqueta = tk.Label(ventana, text = "Máquina de PhyTuring\n\n Máquina de Turing que copia una cadena de entrada con alfabeto (A,B,C)")
     etiqueta.pack()
     
     #caja de Texto
